@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculul ultimei cifre</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .problem-statement {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        .calculation {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .equals {
+            cursor: pointer;
+            color: #2980b9;
+            font-weight: bold;
+            padding: 2px 5px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+        .equals:hover {
+            background-color: #e1f0fa;
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 400px;
+            z-index: 100;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .final-result {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            color: #27ae60;
+        }
+        .explanation {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #fff8e1;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+        }
+        .explanation h3 {
+            margin-top: 0;
+            color: #d35400;
+        }
+        .pattern {
+            background-color: #e8f4fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculul ultimei cifre</h1>
+        
+        <div class="problem-statement">
+            <p><strong>Problemă:</strong> Fie a = 72<sup>2003</sup> + 63<sup>2003</sup> + 54<sup>2003</sup> + 37<sup>2003</sup>.</p>
+            <p>Să se calculeze u(a) - ultima cifră a lui a.</p>
+            <p><em>Notă:</em> u(x<sup>n</sup>) = u(u(x)<sup>n</sup>) - ultima cifră depinde doar de ultima cifră a bazei</p>
+        </div>
+        
+        <div class="calculation">
+            <p>Calculăm u(a) pas cu pas:</p>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Ultima cifră a sumei este ultima cifră a sumei ultimelor cifre ale termenilor">=</span>
+                u(72<sup>2003</sup>) + u(63<sup>2003</sup>) + u(54<sup>2003</sup>) + u(37<sup>2003</sup>)
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Ultima cifră a lui 72 este 2, a lui 63 este 3, a lui 54 este 4, a lui 37 este 7">=</span>
+                u(2<sup>2003</sup>) + u(3<sup>2003</sup>) + u(4<sup>2003</sup>) + u(7<sup>2003</sup>)
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Cautăm tipare în ultimele cifre ale puterilor:">=</span>
+                u(2<sup>2003</sup>) + u(3<sup>2003</sup>) + u(4<sup>2003</sup>) + u(7<sup>2003</sup>)
+            </div>
+            
+            <div class="pattern">
+                <p><strong>Tiparul ultimelor cifre pentru puteri:</strong></p>
+                <p>Pentru 2: 2¹=2, 2²=4, 2³=8, 2⁴=16→6, 2⁵=32→2, 2⁶=64→4... <strong>Se repetă: 2,4,8,6</strong></p>
+                <p>Pentru 3: 3¹=3, 3²=9, 3³=27→7, 3⁴=81→1, 3⁵=243→3... <strong>Se repetă: 3,9,7,1</strong></p>
+                <p>Pentru 4: 4¹=4, 4²=16→6, 4³=64→4, 4⁴=256→6... <strong>Se repetă: 4,6</strong></p>
+                <p>Pentru 7: 7¹=7, 7²=49→9, 7³=343→3, 7⁴=2401→1, 7⁵=16807→7... <strong>Se repetă: 7,9,3,1</strong></p>
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Pentru 2^2003: Grupăm puterile câte 4 (tiparul se repetă la fiecare 4): 2003 = 4×500 + 3, deci este aceeași cu a 3-a din grup: 8">=</span>
+                u(2<sup>3</sup>) + u(3<sup>2003</sup>) + u(4<sup>2003</sup>) + u(7<sup>2003</sup>)
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Pentru 3^2003: Grupăm puterile câte 4: 2003 = 4×500 + 3, deci este aceeași cu a 3-a din grup: 7">=</span>
+                u(2<sup>3</sup>) + u(3<sup>3</sup>) + u(4<sup>2003</sup>) + u(7<sup>2003</sup>)
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Pentru 4^2003: Grupăm puterile câte 2 (tiparul se repetă la fiecare 2): 2003 este impar, deci este aceeași cu prima din grup: 4">=</span>
+                u(2<sup>3</sup>) + u(3<sup>3</sup>) + u(4<sup>1</sup>) + u(7<sup>2003</sup>)
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Pentru 7^2003: Grupăm puterile câte 4: 2003 = 4×500 + 3, deci este aceeași cu a 3-a din grup: 3">=</span>
+                u(2<sup>3</sup>) + u(3<sup>3</sup>) + u(4<sup>1</sup>) + u(7<sup>3</sup>)
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Calculăm direct: 2³=8→8, 3³=27→7, 4¹=4→4, 7³=343→3">=</span>
+                8 + 7 + 4 + 3
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Suma este 8 + 7 + 4 + 3 = 22">=</span>
+                22
+            </div>
+            
+            <div class="step">
+                <span class="equals" data-tooltip="Ultima cifră a sumei este ultima cifră a lui 22, adică 2">=</span>
+                u(22)
+            </div>
+            
+            <div class="final-result">
+                u(a) = 2
+            </div>
+        </div>
+        
+        <div class="explanation">
+            <h3>Explicație detaliată:</h3>
+            <p>Pentru a calcula ultima cifră a unei sume de puteri mari, folosim proprietatea că u(x<sup>n</sup>) = u(u(x)<sup>n</sup>).</p>
+            <p>Aceasta înseamnă că doar ultima cifră a bazei contează pentru calculul ultimei cifre a puterii.</p>
+            <p>Observăm că ultimele cifre ale puterilor se repetă ciclic:</p>
+            <ul>
+                <li>Pentru cifra 2: [2, 4, 8, 6] (se repetă la fiecare 4 puteri)</li>
+                <li>Pentru cifra 3: [3, 9, 7, 1] (se repetă la fiecare 4 puteri)</li>
+                <li>Pentru cifra 4: [4, 6] (se repetă la fiecare 2 puteri)</li>
+                <li>Pentru cifra 7: [7, 9, 3, 1] (se repetă la fiecare 4 puteri)</li>
+            </ul>
+            <p>Pentru a afla poziția în ciclu, grupăm puterile:</p>
+            <ul>
+                <li>Pentru 2<sup>2003</sup>: 2003 = 4×500 + 3, deci este aceeași cu a 3-a din grup: 8</li>
+                <li>Pentru 3<sup>2003</sup>: 2003 = 4×500 + 3, deci este aceeași cu a 3-a din grup: 7</li>
+                <li>Pentru 4<sup>2003</sup>: 2003 este impar, deci este aceeași cu prima din grup: 4</li>
+                <li>Pentru 7<sup>2003</sup>: 2003 = 4×500 + 3, deci este aceeași cu a 3-a din grup: 3</li>
+            </ul>
+            <p>Suma acestora este 8 + 7 + 4 + 3 = 22, iar ultima cifră a sumei este 2.</p>
+        </div>
+    </div>
+    
+    <div id="tooltip" class="tooltip"></div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const equals = document.querySelectorAll('.equals');
+            const tooltip = document.getElementById('tooltip');
+            
+            equals.forEach(eq => {
+                eq.addEventListener('click', function() {
+                    const explanation = this.getAttribute('data-tooltip');
+                    tooltip.innerHTML = explanation.replace(/&#10;/g, '<br>');
+                    tooltip.style.display = 'block';
+                    
+                    // Poziționare tooltip
+                    const rect = this.getBoundingClientRect();
+                    tooltip.style.left = (rect.left + window.scrollX) + 'px';
+                    tooltip.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+                });
+            });
+            
+            // Ascundem tooltip-ul când dăm click în altă parte
+            document.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('equals')) {
+                    tooltip.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
