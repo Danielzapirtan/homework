@@ -197,6 +197,10 @@
     <div id="tooltip" class="tooltip"></div>
     
     <script>
+// Check if content might be cached
+if (performance.navigation.type === 2) { // Back/forward navigation
+  location.reload(true);
+}
         document.addEventListener('DOMContentLoaded', function() {
             const equals = document.querySelectorAll('.equals');
             const tooltip = document.getElementById('tooltip');
